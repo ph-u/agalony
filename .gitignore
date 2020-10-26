@@ -1,0 +1,10 @@
+*~
+*.sw*
+p_*
+nohup*
+._*
+data
+*.pyc
+*.tmp
+__pycache__
+
