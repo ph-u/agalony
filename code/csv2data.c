@@ -76,13 +76,14 @@ int inRange(int nUm, int mIn, int mAx){
 }
 int dAta(char Line[], int cOlumn){
     // can't use strtok because of mem error (https://stackoverflow.com/questions/2385697/why-is-strtok-causing-a-segmentation-fault)
-    int i;
+    int i; // loop index
     int ctCol = 1;
     int i0 = 0;
-    char rEs[] = "987";
+    int i1 = 0; // rEs char index
+    char rEs[] = "...";
     for(i=0;i<strlen(Line);i++){ // count column
         if(Line[i]==','){ctCol++;} // scan for the right column
-        if(ctCol==cOlumn && i0>0){printf("%d,", i);}
+        if(ctCol==cOlumn && i0>0){rEs[i1]=Line[i];i1++;} // replace rEs content char by char
         if(ctCol==cOlumn){i0=1;} // cancel pre-","
     }
     return atoi(rEs);
