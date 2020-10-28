@@ -51,7 +51,7 @@ int main(int argc, char *argv[]){
         tAke = strtok(NULL,s);
         headNot = strcmp(tAke,"x");
         if(headNot!=0){
-            printf("%d, %d: %s", headNot,dAta(LineBuf,3),LineBuf);
+            printf("%d - %s", dAta(LineBuf,4),LineBuf);
         }
         if(putNot == 0){
             fputs(LineBuf,outFilef);
