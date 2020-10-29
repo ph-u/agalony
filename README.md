@@ -44,3 +44,4 @@ Ver | Features
 All source files in this repository are under Apache-2.0 License, the text of which can be found in the LICENSE file.
 
 ## Credits
+Please provide a **URL to this repository** in manuscripts to let others know how to reproduce your results.
