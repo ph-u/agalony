@@ -19,10 +19,10 @@ int dAta(char Line[], int cOlumn);
 
 // main
 int main(int argc, char *argv[]){
-    int aRg = 3;
-    char* inFile1 = argv[1];
-    char* inFile2 = argv[2];
-    char* outFile = argv[3];
+    int aRg = 3; // num of input arg
+    char* inFile1 = argv[1]; // data file
+    char* inFile2 = argv[2]; // supervised RGB file
+    char* outFile = argv[3]; // filtered data file
     size_t lBuf = 4*2+3*3+5; // max pixel y, x + max RGB + delimiters/"\n"
     char *LineBuf = (char*) malloc(lBuf*sizeof(int)); // mem for a int(4)/char(1) line
     int putNot = 0;
@@ -44,14 +44,19 @@ int main(int argc, char *argv[]){
     FILE *inFile2f = fopen(inFile2, "r");
     FILE *outFilef = fopen(outFile, "w");
 
-    // file processing
+    // test RGB range file structure
+    
+    // find row containing supervised RGB ranges
+
+    // data processing
     while (fgets(LineBuf, lBuf, inFile1f) != NULL){
         strcpy(cpSrc,LineBuf);
         tAke = strtok(cpSrc,s);
         tAke = strtok(NULL,s);
         headNot = strcmp(tAke,"x");
         if(headNot!=0){
-            printf("%d - %s", dAta(LineBuf,4),LineBuf);
+            putNot = inRange(dAta(LineBuf,3),dAta(LineBuf,3),dAta(LineBuf,3)) + inRange(dAta(LineBuf,4),dAta(LineBuf,4),dAta(LineBuf,4)) + inRange(dAta(LineBuf,5),dAta(LineBuf,5),dAta(LineBuf,5)); // R+G+B
+            printf("%d - %s", putNot,LineBuf);
         }
         if(putNot == 0){
             fputs(LineBuf,outFilef);
@@ -71,6 +76,11 @@ int main(int argc, char *argv[]){
 // functions
 int inRange(int nUm, int mIn, int mAx){
     int tEst = 0;
+    if(mIn > mAx){
+        int mId = mIn;
+        mIn = mAx;
+        mAx = mId;
+    }
     if(nUm < mIn || nUm > mAx){tEst = 1;}
     return tEst;
 }
