@@ -9,7 +9,7 @@ date: 20201025 (dumped), 20201026
 */
 
 #include <stdio.h> // r/w lines, print msg
-#include <stdlib.h> // malloc, exit, free, atoi
+#include <stdlib.h> // malloc, exit, atoi
 #include <string.h> // str length
 #include <unistd.h> // check file existence
 
@@ -20,16 +20,30 @@ int dAta(char Line[], int cOlumn);
 // main
 int main(int argc, char *argv[]){
     int aRg = 3; // num of input arg
+    int putNot = 0;
+    int i; // loop index
+    int ctCol; // count Columns
+    int rgb; // compare rgb using inRange()
+
+    // files
     char* inFile1 = argv[1]; // data file
     char* inFile2 = argv[2]; // supervised RGB file
     char* outFile = argv[3]; // filtered data file
-    size_t lBuf = 4*2+3*3+5; // max pixel y, x + max RGB + delimiters/"\n"
+
+    // text in data
+    size_t lBuf = 4*2+3*3+5+2; // max pixel y, x + max RGB + delimiters/"\n" + a few extra bytes
     char *LineBuf = (char*) malloc(lBuf*sizeof(int)); // mem for a int(4)/char(1) line
-    int putNot = 0;
-    int headNot = 0;
+
+    // text for RGB range
+    size_t lBuf2 = 49+3*7+2; // [img name] + 6 cols of RGB ranges & 1 col on px:count ratio + a few extra bytes
+    char *LineBuf2 = (char*) malloc(lBuf2*sizeof(int));
+
+    // text variables
     const char s[2] = ",";
-    char *tAke; // determine string is file header ot not
-    char cpSrc[4*2+3*3+5];
+    char *tAke;
+    char cpSrc[lBuf];
+    char *tAke2;
+    char cpBaseName[999];
 
     // test inputs
     if(argc != aRg+1){printf("exactly %d arg required\n",aRg);exit(1);}
@@ -44,32 +58,54 @@ int main(int argc, char *argv[]){
     FILE *inFile2f = fopen(inFile2, "r");
     FILE *outFilef = fopen(outFile, "w");
 
-    // test RGB range file structure
-    
-    // find row containing supervised RGB ranges
+    // get basename of input data file (inFile1)
+    strcpy(cpBaseName,inFile1);
+    char *rEst = cpBaseName; // fit strtok_r syntax
+    tAke = strtok_r(rEst,".",&rEst);
+    ctCol = 1;
+    for(i=0;i<strlen(tAke);i++){
+        if(strncmp(&tAke[i],"/",1)==0){ctCol++;}
+    }
+    for(i=0;i<ctCol-1;i++){
+        tAke2 = strtok_r(tAke,"/",&tAke);
+    }
 
+    // find row containing supervised RGB ranges
+    while (fgets(LineBuf2, lBuf2, inFile2f)){
+        ctCol = 1;
+        for(i=0;i<strlen(LineBuf2);i++){ // check col num
+            if(LineBuf2[i]==','){ctCol++;}
+        }
+        if(ctCol<7){ // test RGB range file structure (optional px, so functional input either 7 or 8 columns)
+            printf("ERROR: csv indicating RGB ranges wrong format (see below)\n\nimage,R1,G1,B1,R2,G2,B2,px\n\nRGB columns are COMPULSORY min/max value of pixels of interest (select the lightest & darkest coloured pixel for reference)\npx is the OPTIONAL column indicating how many pixels correspond to one counting unit (or colony on agar plate in the source image)\n");
+            exit(1);
+        }
+        tAke = strtok_r(LineBuf2,s,&LineBuf2); // https://www.geeksforgeeks.org/strtok-strtok_r-functions-c-examples/
+        if(strcmp(tAke,tAke2)==0){break;}else{tAke="n";}
+    }
+    if(strcmp(tAke,"n")==0){printf("range file does not contain necessary info\n");exit(1);}
+    
     // data processing
-    while (fgets(LineBuf, lBuf, inFile1f) != NULL){
+    i=0;
+    while (fgets(LineBuf, lBuf, inFile1f)){
+        i++;
         strcpy(cpSrc,LineBuf);
         tAke = strtok(cpSrc,s);
         tAke = strtok(NULL,s);
-        headNot = strcmp(tAke,"x");
-        if(headNot!=0){
-            putNot = inRange(dAta(LineBuf,3),dAta(LineBuf,3),dAta(LineBuf,3)) + inRange(dAta(LineBuf,4),dAta(LineBuf,4),dAta(LineBuf,4)) + inRange(dAta(LineBuf,5),dAta(LineBuf,5),dAta(LineBuf,5)); // R+G+B
-            printf("%d - %s", putNot,LineBuf);
-        }
-        if(putNot == 0){
+        rgb = inRange(dAta(LineBuf,3),dAta(LineBuf2,2),dAta(LineBuf2,5)) + inRange(dAta(LineBuf,4),dAta(LineBuf2,3),dAta(LineBuf2,6)) + inRange(dAta(LineBuf,5),dAta(LineBuf2,4),dAta(LineBuf2,7)); // R+G+B, ==0 if in range
+        if(strcmp(tAke,"x")!=0 && rgb != 0){putNot = 1;}
+        if(putNot==0){
             fputs(LineBuf,outFilef);
+        }else{
+            putNot = 0;
         }
-        putNot = 0;
     }
 
     // clean quit
-    free(LineBuf);
     fclose(inFile1f);
     fclose(inFile2f);
     fclose(outFilef);
-    printf("%s -> %s\n", inFile1,outFile);
+    printf("%s -> %s\n", tAke2,outFile);
     return 0;
 }
 
