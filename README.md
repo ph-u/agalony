@@ -12,6 +12,10 @@ Using this pipeline, you can let your computer count for you by using
 - :iphone: **phone cameras** to capture your result agar plates under a high colour-contrast condition;
 - :memo: a csv table showing your RGB colour threshold and pixels-to-colony ratio
 
+## Pipeline Overview
+
+![pipeline](/img/pipeline.pdf)
+
 ## Why should you use the pipeline?
 
 ## OS requirements
