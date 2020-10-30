@@ -14,7 +14,7 @@ Using this pipeline, you can let your computer count for you by using
 
 ## Pipeline Overview
 
-![pipeline](/img/pipeline.pdf)
+![pipeline](/img/pipeline.png)
 
 ## Why should you use the pipeline?
 
