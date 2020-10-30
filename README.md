@@ -32,6 +32,9 @@ And respective language requirements are:
 
 ## Setting up the pipeline
 
+## Uninstall / remove the pipeline
+Delete the program directory (or folder).  This pipeline does not create other directories at any other locations in users' computers.
+
 ## How to use it
 
 ## The Supervisor csv format
