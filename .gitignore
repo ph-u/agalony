@@ -1,6 +1,7 @@
 *~
 *.sw*
 p_*
+c2d
 nohup*
 ._*
 data
