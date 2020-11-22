@@ -12,7 +12,6 @@
 
 aRg = (commandArgs(T))
 suppressWarnings(suppressMessages(library(imager)))
-aRg = "/Users/Ho_Pok_Man/Downloads/BNO2019.JPG"
 
 ##### in #####
 rAw = load.image(aRg)
@@ -29,9 +28,8 @@ dAta = data.frame(
 #plot(dAta[,2],dAta[,1],col=rgb(dAta[,3],dAta[,4],dAta[,5]),pch=16,cex=.1)
 
 ##### out #####
-oUt = strsplit(aRg,split=".",fixed=T)[[1]]
-oUt[length(oUt)] = "csv"
-oUt = paste(oUt, collapse=".")
+oUt = as.character(read.table(text=aRg, sep=".")[1,])
+oUt = paste0(c(oUt[-length(oUt)],"csv"), collapse=".")
 write.table(dAta, oUt, sep=",",quote=F, row.names=F)
 
 cat(paste(aRg,"->",oUt,"\n"))
