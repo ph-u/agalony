@@ -3,7 +3,7 @@
 # author: ph-u
 # script: agalony.sh
 # desc: Semi-automated colony count pipeline
-# in: bash agalony.sh [py/r] [full/path/of/photos_n_rangeCSV] [clear?] [ncpu]
+# in: bash agalony.sh [py/r] [full/path/of/photos_n_rangeCSV] [ncpu] [clear?]
 # out: individual photo csv files, ColonyCount.csv all in same folder
 # arg: 4
 # date: 20201102
@@ -16,7 +16,7 @@ if [[ $1 != "py" ]] && [[ $1 != "r" ]];then echo -e "unknown first input: py / r
 mAs=`dirname $0`
 mAs=`echo -e "${mAs}/code/"`
 tAr=$2
-if [[ -z $4 ]];then nCPU=1;else nCPU=$4;fi
+if [[ -z $3 ]];then nCPU=1;else nCPU=$3;fi
 echo -e "count started, `date`"
 
 ##### clear past intermediate files #####
@@ -32,11 +32,15 @@ for i in `ls|grep -e "\.jpg\|\.JPG\|\.png\|\.PNG\|\.tif\|\.TIF"`;do
 	done
 done
 
+while [[ `ps aux|grep -e "imgPipe.sh"|grep -v "grep\|vi"|wc -l` -ge 1 ]];do
+	sleep 1
+done ## ensure all filters finish work
+
 ##### count colony #####
 bash ${mAs}ctCol.sh ${tAr}
 
 ##### clear output if instructed #####
-if [[ $3 == "clear" ]];then
+if [[ $4 == "clear" ]];then
 	bash ${mAs}fileExist.sh ${tAr}
 fi
 

@@ -16,14 +16,14 @@ cd $1
 echo -e "image_title,num_of_colony" > 00Colony.csv
 
 ##### count #####
-for i in `ls 00F_*`;do
-	nAm=`echo -e "${i}" | awk -F "0F_" '{ print $2 }' | cut -f 1 -d "."`
-	lIn=`grep -e "${nAm}," range.csv | cut -f 8 -d ","`
-	if [[ ${lIn} != '[0-9]+' ]];then
-		nUm="NA"
-	else
+for i in `ls *_fil.csv`;do
+	nAm=`echo -e "${i}" | awk -F "_fil" '{ print $1 }' | cut -f 1 -d "."`
+	lIn=`grep -e "${nAm}," range.csv | cut -f 15 -d ","`
+	if [[ ${lIn} =~ [0-9]+ ]];then
 		tTT=`wc -l < ${i}`
-		nUm=`echo -e $(( ${tTT} / ${lIn} ))` ## round down interger division
+		nUm=`echo -e "${tTT}/${lIn}"|bc` ## round down interger division
+	else
+		nUm="NA"
 	fi
 	echo -e "${nAm},${nUm}" >> 00Colony.csv
 done

@@ -9,18 +9,15 @@ date: 20201120
 */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 #include <math.h>
-#include "agalony.h"
+#include "agalony.h" // it included other necessary libs for this script
 
 int main(int argc, char *argv[]){
     char *pAth = argv[1];
     char *inFile = argv[2];
     char *rEf;
     int lIne = 0, nEed, pxLoc, coLoc1, coLoc2, i; // tokens
-    int minR=255/2,minG=255/2,minB=255/2,maxR=255/2,maxG=255/2,maxB=255/2;
+    int minR,minG,minB,maxR,maxG,maxB;
 
     size_t rangeBuf = 65+35; // 65 char for XY coordinates + 35 char for img name
     char *rangeLine = (char*) malloc(rangeBuf*sizeof(int)); // mem ratio of int:char = 4:1
@@ -28,23 +25,8 @@ int main(int argc, char *argv[]){
     char *rgbLine = (char*) malloc(rgbBuf*sizeof(int));
 
     // correct names & path -> open read files
-    char ffcp3[999];
-    strcpy(ffcp3,pAth);
-    char* ff = strcat(ffcp3,BaseName(inFile)); // strcat(pAth,BaseName(inFile)); will change variable "pAth"
-
-    char ffcp4[999];
-    strcpy(ffcp4,ff);
-    char daTa[] = ".csv";
-    char* dT = strcat(ffcp4,daTa);
-    if(access(dT, R_OK) == -1){printf("data file not readable/exist in path\n");exit(1);}
-    FILE* dataCSV = fopen(dT, "r");
-
-    char ffcp0[999];
-    strcpy(ffcp0,pAth);
-    char rAnge[] = "range.csv";
-    char* rG = strcat(ffcp0,rAnge);
-    if(access(rG, R_OK) == -1){printf("range.csv not readable/exist in path\n");exit(1);}
-    FILE* rangeDt = fopen(rG, "r");
+    FILE* dataCSV = fIle(pAth, BaseName(inFile), "", ".csv", "r");
+    FILE* rangeDt = fIle(pAth, rEf, "range", ".csv", "r"); // rEf is a blank placeholder pointer here
 
     // check & get coordination data from range.csv
     while (fgets(rangeLine, rangeBuf, rangeDt)){
@@ -57,17 +39,8 @@ int main(int argc, char *argv[]){
     }
 
     // correct names & path -> open write files
-    char ffcp1[999];
-    strcpy(ffcp1,ff);
-    char aGar[] = "_agar.csv";
-    char* aG = strcat(ffcp1,aGar);
-    FILE* agarPxl = fopen(aG, "w");
-
-    char ffcp2[999];
-    strcpy(ffcp2,ff);
-    char rGb[] = "_rgb.csv";
-    char* pX = strcat(ffcp2,rGb);
-    FILE* rgbRang = fopen(pX, "w");
+    FILE* agarPxl = fIle(pAth, BaseName(inFile), "", "_agar.csv", "w");
+    FILE* rgbRang = fIle(pAth, BaseName(inFile), "", "_rgb.csv", "w");
 
     // plate radius
     float rimR1 = abs(dAta(rangeLine,2)-dAta(rangeLine,4))/2;
@@ -93,7 +66,7 @@ int main(int argc, char *argv[]){
 
     // pixel filtering & segragation
     // [LIMITATION: sharp boundary oval colonies]
-    int tEstLine = 0;
+    minR = minG = minB = maxR = maxG = maxB = 0; // tokens for data collection
     while (fgets(rgbLine, rgbBuf, dataCSV)){
         nEed = 0; // set token value
         if(lIne==0){lIne++;}else{ // data header skip number checking
@@ -112,23 +85,23 @@ int main(int argc, char *argv[]){
                 }
             }
             if(nEed==0){ // check the need of extracting RGB info
-                if(coLoc1 == 0 || coLoc2 == 0) {lIne=7;} // yes in sample area
+                if(coLoc1 == 0 || coLoc2 == 0) {lIne=7;} // yes in restricted sample area
 
-                if(coLoc1 == 1){
-                    if(c1Shp==0){ // flat oval
-                        if(dAta(rgbLine,1) < col1Y+colR12 && dAta(rgbLine,1) > col1Y-colR12){lIne=7;} // yes within Y-limits
-                    }else{ // circle || slim oval
-                        if(dAta(rgbLine,2) < col1X+colR11 && dAta(rgbLine,2) > col1X-colR11){lIne=7;} // yes within X-limits
-                    }
-                }
+                // if(coLoc1 == 1){
+                //     if(c1Shp==0){ // flat oval
+                //         if(dAta(rgbLine,1) < col1Y+colR12 && dAta(rgbLine,1) > col1Y-colR12){lIne=7;} // yes within Y-limits
+                //     }else{ // circle || slim oval
+                //         if(dAta(rgbLine,2) < col1X+colR11 && dAta(rgbLine,2) > col1X-colR11){lIne=7;} // yes within X-limits
+                //     }
+                // }
                 
-                if(coLoc2 == 1){
-                    if(c2Shp==0){ // flat oval
-                        if(dAta(rgbLine,1) < col2Y+colR22 && dAta(rgbLine,1) > col2Y-colR22){lIne=7;} // yes within Y-limits
-                    }else{ // circle || slim oval
-                        if(dAta(rgbLine,2) < col2X+colR21 && dAta(rgbLine,2) > col2X-colR21){lIne=7;} // yes within X-limits
-                    }
-                }
+                // if(coLoc2 == 1){
+                //     if(c2Shp==0){ // flat oval
+                //         if(dAta(rgbLine,1) < col2Y+colR22 && dAta(rgbLine,1) > col2Y-colR22){lIne=7;} // yes within Y-limits
+                //     }else{ // circle || slim oval
+                //         if(dAta(rgbLine,2) < col2X+colR21 && dAta(rgbLine,2) > col2X-colR21){lIne=7;} // yes within X-limits
+                //     }
+                // }
 
             }
         }
@@ -136,12 +109,18 @@ int main(int argc, char *argv[]){
         if(nEed==0){
             fputs(rgbLine,agarPxl);
             if(lIne==7){
-                if(dAta(rgbLine,3) < minR){minR = dAta(rgbLine,3);}else
-                if(dAta(rgbLine,3) > maxR){maxR = dAta(rgbLine,3);}
-                if(dAta(rgbLine,4) < minG){minG = dAta(rgbLine,4);}else
-                if(dAta(rgbLine,4) > maxG){maxG = dAta(rgbLine,4);}
-                if(dAta(rgbLine,5) < minB){minB = dAta(rgbLine,5);}else
-                if(dAta(rgbLine,5) > maxB){maxB = dAta(rgbLine,5);}
+                if(minR==maxR && minR==minG && minR==minB && minR==maxG && minR==maxB && minG==maxR && minG==maxG && minG==minB && minG==maxB && minB==maxR && minB==maxG && minB==maxB && maxR==maxG && maxR==maxB && maxG==maxB){
+                    minR = maxR = dAta(rgbLine,3);
+                    minG = maxG = dAta(rgbLine,4);
+                    minB = maxB = dAta(rgbLine,5);
+                }else{
+                    if(dAta(rgbLine,3) < minR){minR = dAta(rgbLine,3);}else
+                    if(dAta(rgbLine,3) > maxR){maxR = dAta(rgbLine,3);}
+                    if(dAta(rgbLine,4) < minG){minG = dAta(rgbLine,4);}else
+                    if(dAta(rgbLine,4) > maxG){maxG = dAta(rgbLine,4);}
+                    if(dAta(rgbLine,5) < minB){minB = dAta(rgbLine,5);}else
+                    if(dAta(rgbLine,5) > maxB){maxB = dAta(rgbLine,5);}
+                }
                 lIne = 1; // reset token
             }
         }

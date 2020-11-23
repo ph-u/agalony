@@ -13,6 +13,7 @@ date: 20201120
 
 #include <stdlib.h> // atoi
 #include <string.h> // strlen
+#include <unistd.h> // access()
 #include <math.h> // sqrt
 
 int inRange(int nUm, int mIn, int mAx){
@@ -22,7 +23,7 @@ int inRange(int nUm, int mIn, int mAx){
         mIn = mAx;
         mAx = mId;
     }
-    if(nUm < mIn || nUm > mAx){tEst = 1;}
+    if(nUm < mIn || nUm > mAx){tEst++;}
     return tEst;
 }
 
@@ -66,6 +67,23 @@ char* BaseName(char* FileName){
     strcpy(bNamLine,FileName);
     char* bNamePt = bNamLine; // fit strtok_r syntax
     return strtok_r(bNamePt,".",&bNamePt);
+}
+
+FILE* fIle(char *paTh, char *fileName, char fnamReplace[], char posFix[], char RWE[2]){
+    char pATh[999];strcpy(pATh,paTh); // every string has to be cp prevent namespace overlap
+    char *nAm0;
+    if(strcmp(fnamReplace,"")==0){
+        char fNam[999];strcpy(fNam,fileName); // strcat need one pointer & one char[]
+        nAm0 = strcat(pATh, fNam);
+    }else{
+        nAm0 = strcat(pATh,fnamReplace);
+    }
+    char *nAm1 = strcat(nAm0, posFix);
+    if(strcmp(RWE,"r")==0 && access(nAm1, R_OK) == -1){
+        printf("%s not readable/exist in path\n", nAm1);
+        exit(1);
+    }
+    return fopen(nAm1, RWE);
 }
 
 #endif

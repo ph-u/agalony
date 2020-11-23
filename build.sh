@@ -28,8 +28,10 @@ if [[ `which R|wc -l` -ge 1 ]];then
 	Rscript -e "if(suppressMessages(suppressWarnings(require(imager)))==F){install.packages('imager', dependencies=T, repos='https://cloud.r-project.org/')}"
 fi
 
-cd ${mAs} && gcc csv2data.c -o c2d
+cd ${mAs}
+gcc groupPX.c -o p_gPx
+gcc filterPX.c -o p_fPx
 
-echo -e "agalony successfully-built\n\n       Thank you for taking a step towards reproducible projects\n\n"
+echo -e "agalony successfully-built\n\n       Thank you for taking a step towards reproducible projects\n\nIf you encounter pip3 installation error [No module named 'pkg_resources'], please manual install the needed 3 pkgs listed in requirements.txt using pip3"
 exit 0
 
