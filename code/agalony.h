@@ -27,7 +27,7 @@ int inRange(int nUm, int mIn, int mAx){
     return tEst;
 }
 
-int dAta(char Line[], int cOlumn){
+int dAta(char Line[], int cOlumn){ // data col start from 0
     // can't use strtok because of mem error (https://stackoverflow.com/questions/2385697/why-is-strtok-causing-a-segmentation-fault)
     int i; // loop index
     int ctCol = 1;

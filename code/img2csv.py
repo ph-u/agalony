@@ -3,11 +3,12 @@
 # author: ph-u
 # script: img2csv.py
 # desc: convert an image to csv
-# in: python3 img2csv.py [full/path/img.ext]
+# in: python3 img2csv.py [full/path/img.ext] [H/P]
 # out: a csv version of the image
-# arg: 1
+# arg: 2
 # date: 20201025
 ##### change log #####
+# 20201123: expand functionality - horizontal & portrait photos
 #####################
 
 """convert an image to csv"""
@@ -20,7 +21,7 @@ __license__="None"
 ##### check #####
 import sys, os
 fIle = sys.argv[1]
-if(len(sys.argv)!=2): sys.exit("only one arg is allowed")
+if(len(sys.argv)!=3): sys.exit("only two arguments")
 if os.path.exists(fIle)==False: sys.exit(fIle + " does not exist in path " + os.getcwd() + "\nwrong full path?")
 
 ##### pkg #####
@@ -37,7 +38,13 @@ iMg = pI.open(fIle)
 ##### img convert #####
 pXl = iMg.convert("RGB")
 rGb = array(pXl.getdata()).reshape(iMg.size + (3,))
-iDx = moveaxis(indices(iMg.size), 0, 2)
+if sys.argv[2] == "H":
+    y_axis = [i for i in range(len(indices(iMg.size)[0]),0,-1)]
+    x_axis = [i+1 for i in range(len(indices(iMg.size)[1][0]))]
+    iDx = array([[[i,j] for j in x_axis] for i in y_axis])
+else:
+    iDx = moveaxis(indices(iMg.size), 0, 2)+1
+
 aLl = dstack((iDx, rGb)).reshape((-1, 5))
 dAta = dF(aLl, columns=["y", "x", "R", "G", "B"])
 

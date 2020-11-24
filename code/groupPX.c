@@ -42,27 +42,32 @@ int main(int argc, char *argv[]){
     FILE* agarPxl = fIle(pAth, BaseName(inFile), "", "_agar.csv", "w");
     FILE* rgbRang = fIle(pAth, BaseName(inFile), "", "_rgb.csv", "w");
 
+    // ref line column index
+    int rX1 = 1, rX2 = 3, rY1 = 2, rY2 = 4,
+        c1X1 = 5, c1X2 = 7, c1Y1 = 6, c1Y2 = 8,
+        c2X1 = 9, c2X2 = 11, c2Y1 = 10, c2Y2 = 12;
     // plate radius
-    float rimR1 = abs(dAta(rangeLine,2)-dAta(rangeLine,4))/2;
-    float rimR2 = abs(dAta(rangeLine,3)-dAta(rangeLine,5))/2;
+    float rimR1 = abs(dAta(rangeLine,rX1)-dAta(rangeLine,rX2))/2;
+    float rimR2 = abs(dAta(rangeLine,rY1)-dAta(rangeLine,rY2))/2;
     // plate centre
-    float rimX = (dAta(rangeLine,2)+dAta(rangeLine,4))/2;
-    float rimY = (dAta(rangeLine,3)+dAta(rangeLine,5))/2;
+    float rimX = (dAta(rangeLine,rX1)+dAta(rangeLine,rX2))/2;
+    float rimY = (dAta(rangeLine,rY1)+dAta(rangeLine,rY2))/2;
     // colony radii
-    float colR11 = abs(dAta(rangeLine,6)-dAta(rangeLine,8))/2;
-    float colR12 = abs(dAta(rangeLine,7)-dAta(rangeLine,9))/2;
-    float colR21 = abs(dAta(rangeLine,10)-dAta(rangeLine,12))/2;
-    float colR22 = abs(dAta(rangeLine,11)-dAta(rangeLine,13))/2;
+    float colR11 = abs(dAta(rangeLine,c1X1)-dAta(rangeLine,c1X2))/2;
+    float colR12 = abs(dAta(rangeLine,c1Y1)-dAta(rangeLine,c1Y2))/2;
+    float colR21 = abs(dAta(rangeLine,c2X1)-dAta(rangeLine,c2X2))/2;
+    float colR22 = abs(dAta(rangeLine,c2Y1)-dAta(rangeLine,c2Y2))/2;
     // colony centres
-    float col1X = (dAta(rangeLine,6)+dAta(rangeLine,8))/2;
-    float col1Y = (dAta(rangeLine,7)+dAta(rangeLine,9))/2;
-    float col2X = (dAta(rangeLine,10)+dAta(rangeLine,12))/2;
-    float col2Y = (dAta(rangeLine,11)+dAta(rangeLine,13))/2;
+    float col1X = (dAta(rangeLine,c1X1)+dAta(rangeLine,c1X2))/2;
+    float col1Y = (dAta(rangeLine,c1Y1)+dAta(rangeLine,c1Y2))/2;
+    float col2X = (dAta(rangeLine,c2X1)+dAta(rangeLine,c2X2))/2;
+    float col2Y = (dAta(rangeLine,c2Y1)+dAta(rangeLine,c2Y2))/2;
     // oval shapes: flat [0] / slim [1]
     int rimShp=0, c1Shp=0, c2Shp=0;
     if(rimR1 < rimR2){rimShp++;}
     if(colR11 < colR12){c1Shp++;}
     if(colR21 < colR22){c2Shp++;}
+    // printf("%d, %d, %d, %d;\n", dAta(rangeLine,1), dAta(rangeLine,2), dAta(rangeLine,3), dAta(rangeLine,4));exit(0);
 
     // pixel filtering & segragation
     // [LIMITATION: sharp boundary oval colonies]
@@ -86,23 +91,6 @@ int main(int argc, char *argv[]){
             }
             if(nEed==0){ // check the need of extracting RGB info
                 if(coLoc1 == 0 || coLoc2 == 0) {lIne=7;} // yes in restricted sample area
-
-                // if(coLoc1 == 1){
-                //     if(c1Shp==0){ // flat oval
-                //         if(dAta(rgbLine,1) < col1Y+colR12 && dAta(rgbLine,1) > col1Y-colR12){lIne=7;} // yes within Y-limits
-                //     }else{ // circle || slim oval
-                //         if(dAta(rgbLine,2) < col1X+colR11 && dAta(rgbLine,2) > col1X-colR11){lIne=7;} // yes within X-limits
-                //     }
-                // }
-                
-                // if(coLoc2 == 1){
-                //     if(c2Shp==0){ // flat oval
-                //         if(dAta(rgbLine,1) < col2Y+colR22 && dAta(rgbLine,1) > col2Y-colR22){lIne=7;} // yes within Y-limits
-                //     }else{ // circle || slim oval
-                //         if(dAta(rgbLine,2) < col2X+colR21 && dAta(rgbLine,2) > col2X-colR21){lIne=7;} // yes within X-limits
-                //     }
-                // }
-
             }
         }
 

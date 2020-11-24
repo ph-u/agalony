@@ -5,9 +5,10 @@
 # desc: convert an image to csv
 # in: Rscript img2csv.R [full/path/img.ext] [H/P]
 # out: a csv version of the image
-# arg: 1
+# arg: 2
 # date: 20201103
 ##### change log #####
+# 20201123: expand functionality - horizontal & portrait photos
 #####################
 
 aRg = (commandArgs(T))
@@ -32,7 +33,6 @@ dAta = data.frame(
     G = as.vector(round(rAw[,,2]*255)),
     B = as.vector(round(rAw[,,3]*255))
 )
-#plot(dAta[,2],dAta[,1],col=rgb(dAta[,3]/255,dAta[,4]/255,dAta[,5]/255),pch=16,cex=.1)
 
 ##### out #####
 oUt = as.character(read.table(text=aRg[1], sep=".")[1,])
