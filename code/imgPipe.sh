@@ -24,6 +24,7 @@ if [[ $1 == "py" ]];then
 else
 	Rscript img2csv.R ${pAh}/${iMg} ${HP}
 fi
-./p_gPx ${pAh}/ ${oUt}.csv && ./p_fPx ${pAh}/ ${oUt}.csv
+./p_gPx ${pAh}/ ${oUt}\.csv &&\
+./p_fPx ${pAh}/ ${oUt}\.csv
 
 exit 0

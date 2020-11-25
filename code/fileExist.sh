@@ -9,8 +9,9 @@
 # date: 20201120
 
 cd $1
-for i in `ls *.csv|grep -v "range"`;do
-    rm ${i}&
+for i in `ls | grep -e "\.jpg\|\.JPG\|\.png\|\.PNG\|\.tif\|\.TIF"`;do
+    j=`echo ${i} | cut -f 1 -d "."`
+    rm ${j}*.csv&
 done
 
 exit
