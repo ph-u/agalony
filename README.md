@@ -1,6 +1,6 @@
 # Reproducible Agar Colony Count
 
-## :camera: + :triangular_ruler: + :computer: = :bar_chart:  
+## Phone Camera + XY Coordinates = Unit Count
 
 This pipeline is automating the tedious step of **counting regular-sized units** on a 2D plane, such as counting microbial colonies on an agar plate.  By using **phone cameras** and **XY coordinates** of the photos, users can count thousands of colonies in a photo within minutes.  The counting result is also completely reproducible and justifiable.
 
@@ -17,7 +17,7 @@ Details of each program component and (intermediate) outputs are documented in t
     - Pixel-filtering steps take **less than a minute** to complete, and these steps **need very little RAM**
     - Pixel-filtering uses RGB data sampled from user-defined areas on the photo, so the filters are **independent from the programming language used** to translate the photos
 0. Reproducible
-    - Same photos :camera:, same criteria :triangular_ruler:, same counting results :bar_chart:
+    - Same photos, same criteria, same counting results
     - Because the result only depends on the XY-coordinates, the RGB data sample would not change as long as the **photo size kept constant**
 0. Justifiable
     - RGB colour of filtered colonies **can be plotted and verified** by observation, so the colour ranges can be scientifically justified
@@ -66,6 +66,4 @@ Please provide a source to this repository (e.g. URL) in manuscripts to let othe
 All source files in this repository are under Apache-2.0 License, the text of which can be found in the LICENSE file.
 
 ## Version History
-Ver | Features
---- | ---
-0.0.1 | Initial release
+0.0.1 - Initial release

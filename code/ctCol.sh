@@ -21,7 +21,7 @@ for i in `ls *_fil.csv`;do
 	lIn=`grep -e "${nAm}," range.csv | cut -f 15 -d ","`
 	if [[ ${lIn} =~ [0-9]+ ]];then
 		tTT=`wc -l < ${i}`
-		nUm=`echo -e "${tTT}/${lIn}"|bc` ## round down interger division
+		nUm=`echo -e "(${tTT}-1)/${lIn}"|bc` ## round down interger division
 	else
 		nUm="NA"
 	fi
