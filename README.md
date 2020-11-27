@@ -1,13 +1,10 @@
 # Reproducible Agar Colony Count
 
 ## Summary
-Are you
-- spending days counting colonies on agar plates;
-- worrying your colony counts will be challenged by others?
 
-Using this pipeline, you can let your computer count for you by using
-- :iphone: **phone cameras** to capture your result agar plates under a high colour-contrast condition;
-- :memo: a csv table showing your RGB colour threshold and pixels-to-colony ratio
+:iphone: + :memo + :computer: = :bar_chart:  
+
+This pipeline is for automating counting regular units on a 2D plane.  A good application is on **counting microbial colonies** on an agar plate.  By using **phone cameras** and a supervisor csv table, users can count thousands of colonies in a photo within minutes.
 
 ## Pipeline Overview (2 alternative pipelines)
 ![pipeline](/img/pipeline.png)
