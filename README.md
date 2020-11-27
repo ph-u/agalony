@@ -24,40 +24,36 @@ Details of each program component and (intermediate) outputs are documented in t
     - Photos with complete documentation (i.e. data attributes, such as experimental conditions and type of organisms in the photo) can be challenged (hence falsifiable), **boosting confidence to well-conducted experiments**
 
 ## Computer language requirements
-Users can choose their pipeline out of the following two:
-1. C & python3
-0. C, R & shell
-
-And respective language requirements are:
-- C-gcc compiler 4.2.1
-- [python](https://www.python.org/) (>=3.7.3)
-    - package requirements are documented in `requirements.txt`
-- [R](https://www.r-project.org/) (>=2.10.0)
-    - [imager](https://www.rdocumentation.org/packages/imager/versions/0.42.3)
 - *NIX shell environment
     - the built-in terminal app in MacOS/Linux
     - [Linux enumerators](https://www.ubuntupit.com/best-linux-emulators-for-windows-system/) in Windows
     - [Virtual Machines](https://www.digitaltrends.com/computing/best-virtual-machines/)
+- C-gcc compiler 4.2.1
+- (option 1) [python](https://www.python.org/) (>=3.7.3)
+    - package requirements are documented in `requirements.txt`
+- (option 2) [R](https://www.r-project.org/) (>=2.10.0)
+    - [imager](https://www.rdocumentation.org/packages/imager/versions/0.42.3)
 
 ## Setting up the pipeline
+```
+bash full/path/to/**build.sh**
+```
+
+## Using the pipeline
+1. Put all photos in a single directory with a file `range.csv`
+0. `range.csv` format: 15 columns
+    - image name [column 1]
+    - XY bounaries for the circular view of pixel collection [column 2-5: X1, Y1, X2, Y2]
+    - XY boundaries for the 1st sample colony for RGB range construction [column 6-9]
+    - XY boundaries for the 2nd sample colony for RGB range construction [column 10-13]
+    - **H**orizontal or **P**ortrait photo [column 14: H/P]
+    - "pixels to one colony" ratio [column 15: an integer, mostly >1]
 
 ## Uninstall / remove the pipeline
 Delete the program directory (or folder).  This pipeline does not create other directories at any other locations in users' computers.
 
-## How to use it
-
-## The Supervisor csv format
-image name | R (px 1) | G (px 1) | B (px 1) | R (px 2) | G (px 2) | B (px 2) | ratio (optional)
---- | --- | --- | --- | --- | --- | --- | ---
-example 1 | 0 | 0 | 0 | 255 | 255 | 255 |
-example 2 | 77 | 196 | 213 | 30 | 200 | 213 | 12
-1. The number columns and RGB sequences are fixed (except the optional one)
-0. Image names must be the same as the corresponding filenames of the photo the rows represent
-0. The colour scale of RGB is from **0 to 255**
-0. RGB ranges are independent from one another; using one pixel for all three parameters is solely for **convenience** and **efficiency**
-
 ## Credits
-Please provide a **URL to this repository** in manuscripts to let others know how to reproduce your results.
+Please provide a source to this repository (e.g. URL) in manuscripts to let others know how to reproduce your results.
 
 ## License
 All source files in this repository are under Apache-2.0 License, the text of which can be found in the LICENSE file.
