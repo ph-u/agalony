@@ -1,10 +1,10 @@
 # Reproducible Agar Colony Count
 
-## :iphone: + :memo: + :computer: = :bar_chart:  
+## :camera: + :memo: + :computer: = :bar_chart:  
 
-This pipeline is for automating counting regular units on a 2D plane.  A good application is on **counting microbial colonies** on an agar plate.  By using **phone cameras** and a supervisor csv table, users can count thousands of colonies in a photo within minutes.
+This pipeline is for automating **counting regular units** on a 2D plane.  A good application is on counting microbial colonies on an agar plate.  By using **phone cameras** and a supervisor csv table, users can count thousands of colonies in a photo within minutes.
 
-## Pipeline Overview (2 alternative pipelines)
+## The Pipeline
 ![pipeline](/img/pipeline.png)
 
 ## Why should you use the pipeline?
