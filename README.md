@@ -7,7 +7,7 @@ This pipeline is for automating **counting regular units** on a 2D plane.  A goo
 ## The Pipeline
 ![pipeline](/img/pipeline.png)
 
-Details of each program component and (intermediate) outputs is documented in the [manual](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/detailed_instruction.html?token=AMIZLGHZU4EYI4VQAC2LTDS7YDPOY) and there is an [example](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) relating to this pipeline.
+Details of each program component and (intermediate) outputs is documented in the [**MANUAL**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/detailed_instruction.html?token=AMIZLGHZU4EYI4VQAC2LTDS7YDPOY) and there is an [**example**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) relating to this pipeline.
 
 ## Why should you use the pipeline?
 
