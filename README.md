@@ -1,15 +1,27 @@
 # Reproducible Agar Colony Count
 
-## :camera: + :memo: + :computer: = :bar_chart:  
+## :camera: + :triangular_ruler: + :computer: = :bar_chart:  
 
-This pipeline is for automating **counting regular units** on a 2D plane.  A good application is on counting microbial colonies on an agar plate.  By using **phone cameras** and a supervisor csv table, users can count thousands of colonies in a photo within minutes.
+This pipeline is automating the tedious step of **counting regular-sized units** on a 2D plane, such as counting microbial colonies on an agar plate.  By using **phone cameras** and **XY coordinates** of the photos, users can count thousands of colonies in a photo within minutes.  The counting result is also completely reproducible and justifiable.
 
 ## The Pipeline
 ![pipeline](/img/pipeline.png)
 
-Details of each program component and (intermediate) outputs is documented in the [**MANUAL**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/detailed_instruction.html?token=AMIZLGHZU4EYI4VQAC2LTDS7YDPOY) and there is an [**example**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) relating to this pipeline.
+Details of each program component and (intermediate) outputs are documented in the [**MANUAL**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/detailed_instruction.html?token=AMIZLGHZU4EYI4VQAC2LTDS7YDPOY) and there is an [**example**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) relating to this pipeline.
 
 ## Why should you use the pipeline?
+
+1. Quick & accurate
+    - The pipeline speed bottleneck is on translating the binary RGB in each pixel of a photo into a spreadsheet/csv (comma-separated value)
+    - A 2.2MB photo can be translated into a 167MB csv **within two minutes**
+    - Pixel-filtering steps take **less than a minute** to complete, and these steps **need very little RAM**
+    - Pixel-filtering uses RGB data sampled from user-defined areas on the photo, so the filters are **independent from the programming language used** to translate the photos
+0. Reproducible
+    - Same photos :camera:, same criteria :triangular_ruler:, same counting result :bar_chart:
+    - Because the result only depends on the XY-coordinates, the RGB data sample would not change as long as the **photo size kept constant**
+0. Justifiable
+    - RGB colour of filtered colonies **can be plotted and verified** by observation, so the colour ranges can be scientifically justified
+    - Photos with complete documentation (i.e. data attributes, such as experimental conditions and type of organisms in the photo) can be challenged (hence falsifiable), **boosting confidence to well-conducted experiments**
 
 ## Computer language requirements
 Users can choose their pipeline out of the following two:
