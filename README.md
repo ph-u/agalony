@@ -36,10 +36,10 @@ Details of each program component and (intermediate) outputs are documented in t
 
 ## Setting up the pipeline
 ```
-bash full/path/to/**build.sh**
+bash /full/path/to/build.sh
 ```
 
-## Using the pipeline
+## [Using](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/detailed_instruction.html?token=AMIZLGHZU4EYI4VQAC2LTDS7YDPOY) the pipeline
 1. Put all photos in a single directory with a file `range.csv`
 0. `range.csv` format: 15 columns
     - image name [column 1]
@@ -48,6 +48,9 @@ bash full/path/to/**build.sh**
     - XY boundaries for the 2nd sample colony for RGB range construction [column 10-13]
     - **H**orizontal or **P**ortrait photo [column 14: H/P]
     - "pixels to one colony" ratio [column 15: an integer, mostly >1]
+0. `bash /full/path/to/agalony.sh [py/r] [full/path/of/photos] [nCPU] [clear?]`
+
+An [**example**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) is also provided for a clearer illustration.
 
 ## Uninstall / remove the pipeline
 Delete the program directory (or folder).  This pipeline does not create other directories at any other locations in users' computers.
