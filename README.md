@@ -17,7 +17,7 @@ Details of each program component and (intermediate) outputs are documented in t
     - Pixel-filtering steps take **less than a minute** to complete, and these steps **need very little RAM**
     - Pixel-filtering uses RGB data sampled from user-defined areas on the photo, so the filters are **independent from the programming language used** to translate the photos
 0. Reproducible
-    - Same photos :camera:, same criteria :triangular_ruler:, same counting result :bar_chart:
+    - Same photos :camera:, same criteria :triangular_ruler:, same counting results :bar_chart:
     - Because the result only depends on the XY-coordinates, the RGB data sample would not change as long as the **photo size kept constant**
 0. Justifiable
     - RGB colour of filtered colonies **can be plotted and verified** by observation, so the colour ranges can be scientifically justified
@@ -28,13 +28,17 @@ Details of each program component and (intermediate) outputs are documented in t
     - the built-in terminal app in MacOS/Linux
     - [Linux enumerators](https://www.ubuntupit.com/best-linux-emulators-for-windows-system/) in Windows
     - [Virtual Machines](https://www.digitaltrends.com/computing/best-virtual-machines/)
-- C-gcc compiler 4.2.1
+- C-gcc compiler >=4.2.1
 - (option 1) [python](https://www.python.org/) (>=3.7.3)
     - package requirements are documented in `requirements.txt`
 - (option 2) [R](https://www.r-project.org/) (>=2.10.0)
     - [imager](https://www.rdocumentation.org/packages/imager/versions/0.42.3)
 
 ## Setting up the pipeline
+
+1. Go to the [Release](https://github.com/ph-u/agalony/releases) page of this repository and download any one zip file
+0. Unzip the package and put it anywhere handy -- you probably need to use your mouse to pull the pipeline script (i.e. agalony.sh) to your terminal unless you've set up an alias
+0. Run the following command in the terminal
 ```
 bash /full/path/to/build.sh
 ```
