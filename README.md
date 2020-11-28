@@ -1,6 +1,6 @@
 # Reproducible Agar Colony Count
 
-## Phone Camera + XY Coordinates = Unit Count
+## Camera + Coordinates = Count
 
 This pipeline is automating the tedious step of **counting regular-sized units** on a 2D plane, such as counting microbial colonies on an agar plate.  By using **phone cameras** and **XY coordinates** of the photos, users can count thousands of colonies in a photo within minutes.  The counting result is also completely reproducible and justifiable.
 
@@ -52,9 +52,16 @@ bash /full/path/to/build.sh
     - XY boundaries for the 2nd sample colony for RGB range construction [column 10-13]
     - **H**orizontal or **P**ortrait photo [column 14: H/P]
     - "pixels to one colony" ratio [column 15: an integer, mostly >1]
-0. `bash /full/path/to/agalony.sh [py/r] [full/path/of/photos] [nCPU] [clear?]`
+0. `bash /full/path/to/agalony.sh [py/r] [/full/path/of/photos] [nCPU] [clear?]`
 
 An [**example**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) is also provided for a clearer illustration.
+
+## **Warning**
+Users should only put photos and one `range.csv` in the data folder before running this program, especially when using the `clear` option to permanent delete intermediate files.  
+
+It is the sole responsibility of users to ensure only the necessary input files are in the directory this program works on; this pipeline never process data outside the user-indicated photo directory.  
+
+It is strongly suggested a subdirectory embedded within the usual data directory is used to contain all photos and a `range.csv` for this unit identification step.
 
 ## Uninstall / remove the pipeline
 Delete the program directory (or folder).  This pipeline does not create other directories at any other locations in users' computers.
