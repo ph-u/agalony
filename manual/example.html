@@ -93,20 +93,94 @@
             </tr>
         </table>
         <p>Next, we run the program for the first time and plot the intermediate outputs (*_agar.csv & *_fil.csv only) for checking. It is not recommended to plot the raw csv output because plotting one can take half an hour.</p>
+
+        <pre><code>
+            bash /Users/username/Program/directory/agalony.sh py /Users/username/data/to/photos/directory 2
+        </code></pre>
+
+        <p>In the code, we use 2 CPU to parallel process 2 photos at a  time, using full paths for the program and photos.  Note that the path to photos ends with letters (or numbers), not a forward slash (" / ").</p>
+
+        <p>After the first filtering, we can see whether our initial guess is accurate enough or not.  In the below table, we see our initial guess for the rim is fairly accurate (*_agar.csv) but not the target sample (*_fil.csv - first attempt).  We can zoom into our initial target sampling area (s1 & s2) and get a refined RGB sampling area.  We can also count the pixel-to-unit ratio and fill in the last column of the range.csv</p>
+
+        <p>The sampling area refinement step is put after the initial run because we canot zoom into the photo and get correct XY coordinates using built-in methods.</p>
         <table>
-            <tr><th></th><th>*_agar.csv</th><th>*_fil.csv</th></tr>
-            <tr><td>WA0003</td>
+            <tr><th></th><th>WA0003</th><th>WA0004</th><th>WA0006</th></tr>
+            <tr><td>*_agar.csv</td>
                 <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0003_agar.png" alt="Pseudomonas aeruginosa agar" height="300" width="300"></td>
-                <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0003_fil0.png" alt="Pseudomonas aeruginosa initial filter" height="300" width="300"></td>
-            </tr>
-            <tr><td>WA0004</td>
                 <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0004_agar.png" alt="Escherichia coli agar" height="300" width="300"></td>
-                <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0004_fil0.png" alt="Escherichia coli initial filter" height="300" width="300"></td>
-            </tr>
-            <tr><td>WA0006</td>
                 <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0006_agar.png" alt="Staphylococcus epidermidis agar" height="300" width="300"></td>
+            </tr>
+            <tr><td>*_fil.csv - first attempt</td>
+                <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0003_fil0.png" alt="Pseudomonas aeruginosa initial filter" height="300" width="300"></td>
+                <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0004_fil0.png" alt="Escherichia coli initial filter" height="300" width="300"></td>
                 <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0006_fil0.png" alt="Staphylococcus epidermidis initial filter" height="300" width="300"></td>
+                
+            </tr>
+            <tr><td>*_fil.csv - final attempt</td>
+                <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0003_fil1.png" alt="Pseudomonas aeruginosa final filter" height="300" width="300"></td>
+                <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0004_fil1.png" alt="Escherichia coli final filter" height="300" width="300"></td>
+                <td><img src="https://raw.githubusercontent.com/ph-u/agalony/master/img/WA0006_fil1.png" alt="Staphylococcus epidermidis final filter" height="300" width="300"></td>
             </tr>
         </table>
+
+        <p>Below is the table showing the <b>range.csv</b> we've used for the final attempt.</p>
+        <table>
+            <tr>
+                <th>img_name</th>
+                <th>rim_X1</th><th>rim_Y1</th><th>rim_X2</th><th>rim_Y2</th>
+                <th>sample1_X1</th><th>sample1_Y1</th><th>sample1_X2</th><th>sample1_Y2</th>
+                <th>sample2_X1</th><th>sample2_Y1</th><th>sample2_X2</th><th>sample2_Y2</th>
+                <th>Hz_Pt</th><th>px_Unit_Ratio</th>
+            </tr>
+            <tr>
+                <td>WA0003</td>
+                <td>291</td><td>139</td><td>1050</td><td>900</td>
+                <td>868</td><td>737</td><td>873</td><td>739</td>
+                <td>309</td><td>503</td><td>315</td><td>497</td>
+                <td>H</td><td>8</td>
+            </tr>
+            <tr>
+                <td>WA0004</td>
+                <td>166</td><td>5</td><td>922</td><td>761</td>
+                <td>490</td><td>123</td><td>495</td><td>150</td>
+                <td>584</td><td>657</td><td>586</td><td>654</td>
+                <td>H</td><td>3</td>
+            </tr>
+            <tr>
+                <td>WA0006</td>
+                <td>890</td><td>64</td><td>109</td><td>845</td>
+                <td>554</td><td>764</td><td>562</td><td>786</td>
+                <td>506</td><td>370</td><td>519</td><td>372</td>
+                <td>H</td><td>4</td>
+            </tr>
+        </table>
+
+        <p>Since the ratio is still subjected to bias, we should record the criteria somewhere:</p>
+
+        <table>
+            <tr><th>img_name</th><th>x-limits for px:unit ratio</th><th>y-limits for px:unit ratio</th><th>actual ratio</th></tr>
+            <tr><td>WA0003</td><td>820, 870</td><td>430,480</td><td>8:1</td></tr>
+            <tr><td>WA0004</td><td>350, 400</td><td>550, 600</td><td>3:1</td></tr>
+            <tr><td>WA0006</td><td>600,700</td><td>600,700</td><td>32:7</td></tr>
+        </table>
+
+        <p>This pipeline always round-down numbers.  We are assuming the sample criteria (in <b>range.csv</b>) is overestimating the pixels representing the target.  In the pixel:unit ratio, we can judge whether the <b>*_fil.csv</b> we have generated are under-/over-estimating and make adjustment.  In <b>WA0006</b> the <b>WA0006_fil.csv</b> has underestimated the target number due to non-clustered cells are not detected.  Hence we round down the ratio to compensate the underestimation.  This judgement can be challenged with evidence, which makes this step a scientifically valid judgement.</p>
+
+        <p>Then with all data attribute set in place, we can go for the final run:</p>
+
+        <pre><code>
+            bash /Users/username/Program/directory/agalony.sh py /Users/username/data/to/photos/directory 2 clear
+        </code></pre>
+
+        <p>Although the time we use for achieving the final filter may vary, using this pipeline to streamline the counting of regular units enable falsifiable laboratory data.  This can boost others' trust on your research result.</p>
+        <p>This pipeline is not perfect for identifying units.  It needs human involvement to guide its colour identification.  Yet it provides approximate measurement values for data that we cannot count by hand.  This is hence an improvement from laboratory data that are noted as "Too Many To Count" (TMTC) or agar plates that experimentalists sectioned and counted a "representative" section to resemble the real number of colonies on the plates.</p>
+
+        <p>For a more accurate result, input photos should have</p>
+        <ol>
+            <li>high colour contrast</li>
+            <li>consistent colour within & between units in the photo</li>
+            <li>clear target unit boundary</li>
+        </ol>
+        <a href="#top">Back to the Top</a>
         </body>
 </html>
