@@ -1,0 +1,3 @@
+>> Target unit and background have different RGB colour ranges
+>> Target units do not overlap each other in the photo view
+>> Target units do not have shape distortions; their shapes are independent from the density on the 2D background plane
