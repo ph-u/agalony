@@ -5,9 +5,9 @@
 This pipeline is automating the tedious step of **counting regular-sized units** on a 2D plane, such as counting microbial colonies on an agar plate.  By using **phone cameras** and **XY coordinates** of the photos, users can count thousands of colonies in a photo within minutes.  The counting result is also completely reproducible and justifiable.
 
 ## The Pipeline
-![pipeline](/img/pipeline.png)
+![pipeline](https://raw.githubusercontent.com/ph-u/docManual/master/agalony/img/pipeline.png)
 
-Details of each program component and (intermediate) outputs are documented in the [**MANUAL**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/detailed_instruction.html?token=AMIZLGHZU4EYI4VQAC2LTDS7YDPOY) and there is an [**example**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) relating to this pipeline.
+Details of each program component and (intermediate) outputs are documented in the [**MANUAL**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/docManual/master/agalony/manual/detailed_instruction.html?token=AMIZLGHZU4EYI4VQAC2LTDS7YDPOY) and there is an [**example**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/docManual/master/agalony/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) relating to this pipeline.
 
 ## Why should you use the pipeline?
 
@@ -43,7 +43,7 @@ Details of each program component and (intermediate) outputs are documented in t
 bash /full/path/to/build.sh
 ```
 
-## [Using](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/detailed_instruction.html?token=AMIZLGHZU4EYI4VQAC2LTDS7YDPOY) the pipeline
+## [Using](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/docManual/master/agalony/manual/detailed_instruction.html?token=AMIZLGHZU4EYI4VQAC2LTDS7YDPOY) the pipeline
 1. Put all photos in a single directory with a file `range.csv`
 0. `range.csv` format: 15 columns
     - image name [column 1]
@@ -54,7 +54,7 @@ bash /full/path/to/build.sh
     - "pixels to one colony" ratio [column 15: an integer, mostly >1]
 0. `bash /full/path/to/agalony.sh [py/r] [/full/path/of/photos] [nCPU] [clear?]`
 
-An [**example**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/agalony/master/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) is also provided for a clearer illustration.
+An [**example**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/docManual/master/agalony/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) is also provided for a clearer illustration.
 
 ## **Warning**
 Users should only put photos and one `range.csv` in the data folder before running this program, especially when using the `clear` option to permanent delete intermediate files.  
