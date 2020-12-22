@@ -7,6 +7,7 @@
 # out: a csv version of the image
 # arg: 2
 # date: 20201025
+# ver: 3.7.3
 ##### change log #####
 # 20201123: expand functionality - horizontal & portrait photos
 #####################
