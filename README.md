@@ -81,5 +81,5 @@ All source files in this repository are under Apache-2.0 License, the text of wh
 [https://ph-u.github.io/agalony/](https://ph-u.github.io/agalony/)
 
 ## Version History
-1.0.0 - modify CLI, more efficient pipeline (C-script)
+1.0.0 - modify CLI, more efficient pipeline (C-script)  
 0.0.1 - Initial release
