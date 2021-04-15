@@ -13,6 +13,7 @@ date: 20201122
 
 int main(int argc, char *argv[]){
     char *pAth = argv[1], *inFile = argv[2];
+    const char s[2]=",";
 
     size_t rangeBuf = 25; // rgb: [RGB,]*6+EOL (last , -> \0)
     char *rangeLine = (char*) malloc(rangeBuf*sizeof(int));
@@ -24,25 +25,31 @@ int main(int argc, char *argv[]){
     FILE *dataFile = fIle(pAth, BaseName(inFile), "", "_agar.csv", "r");
     FILE *filterFile = fIle(pAth, BaseName(inFile), "", "_fil.csv", "w");
 
+    int minR,minG,minB,maxR,maxG,maxB, i=0;
     fgets(rangeLine, rangeBuf, rangeFile);
-    int minR = dAta(rangeLine, 1);
-    int maxR = dAta(rangeLine, 2);
-    int minG = dAta(rangeLine, 3);
-    int maxG = dAta(rangeLine, 4);
-    int minB = dAta(rangeLine, 5);
-    int maxB = dAta(rangeLine, 6);
+    char *rEf = strtok(rangeLine,s);
+    while(rEf!=NULL){
+	    if(i==0){minR=atoi(rEf);}else if(i==1){maxR=atoi(rEf);}else if(i==2){minG=atoi(rEf);}else if(i==3){maxG=atoi(rEf);}else if(i==4){minB=atoi(rEf);}else{maxB=atoi(rEf);}
+	    rEf = strtok(NULL,s);i++;
+    }
     free(rangeLine); // only need to free true mem; size_t is not a true mem
     fclose(rangeFile);
 
-    int lIne = 0; // token to indicate header
-    int mAtch; // token to show rgb match
+    int lIne=0,mAtch=0, // token
+    dY,dX,dR,dG,dB; // data
+    char cPy[rgbBuf];
     while(fgets(rgbLine, rgbBuf, dataFile)){
-        mAtch = inRange(dAta(rgbLine,3),minR,maxR)+inRange(dAta(rgbLine,4),minG,maxG)+inRange(dAta(rgbLine,5),minB,maxB);
-        if(mAtch==0 || lIne==0){
-            fputs(rgbLine, filterFile);
-        }
-        if(lIne==0){lIne++;} // remove token
-    }
+        if(lIne==0){lIne++;}else{ // remove token
+	strcpy(cPy,rgbLine);
+	rEf = strtok(cPy,s);
+	i=0;while(rEf!=NULL){
+		if(i==0){dY=atoi(rEf);}else if(i==1){dX=atoi(rEf);}else if(i==2){dR=atoi(rEf);}else if(i==3){dG=atoi(rEf);}else{dB=atoi(rEf);}
+		rEf = strtok(NULL,s);i++;
+	}
+        mAtch = inRange(dR,minR,maxR)+inRange(dG,minG,maxG)+inRange(dB,minB,maxB);
+	}
+        if(mAtch==0){fputs(rgbLine, filterFile);}
+	}
 
     fclose(dataFile);
     fclose(filterFile);

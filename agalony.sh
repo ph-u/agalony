@@ -2,15 +2,18 @@
 
 # author: ph-u
 # script: agalony.sh
-# desc: Semi-automated colony count pipeline
-# in: bash agalony.sh [py/r] [full/path/of/photos_n_rangeCSV] [ncpu] [clear?]
+# desc: Semi-automated colony count pipeline - options {python3 = p, Rscript = r, clear intermediate files = c}
+# in: bash agalony.sh [options] [full/path/of/photos_n_rangeCSV] [ncpu]
 # out: individual photo csv files, ColonyCount.csv all in same folder
-# arg: 4
-# date: 20201102
+# arg: 3
+# date: 20201102, 20210415
 
 ##### check input #####
 [ -z $1 ] && grep "desc:\|in:" $0 | grep -v "grep" | cut -f 2 -d ":" && exit 1
-if [[ $1 != "py" ]] && [[ $1 != "r" ]];then echo -e "unknown first input: py / r ?";exit 1;fi
+oPtions=$1
+if [[ ${oPtions} =~ [Pp] ]];then sC="py"
+elif [[ ${oPtions} =~ [Rr] ]];then sC="r"
+else echo -e "Do you want python3 (p) or Rscript (r)?";exit 1;fi
 
 ##### orientate #####
 mAs=`dirname $0`
@@ -40,11 +43,6 @@ done ## ensure all filters finish work
 bash ${mAs}ctCol.sh ${tAr}
 
 ##### clear output if instructed #####
-if [[ $4 == "clear" ]];then
-	bash ${mAs}fileExist.sh ${tAr}
-fi
-
+[[ ${oPtions} =~ [Cc] ]] && bash ${mAs}fileExist.sh ${tAr}
 echo -e "count finished, `date`\nThx for using agalony"
-
 exit 0
-

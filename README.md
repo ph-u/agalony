@@ -52,12 +52,17 @@ bash /full/path/to/build.sh
     - XY boundaries for the 2nd sample colony for RGB range construction [column 10-13]
     - **H**orizontal or **P**ortrait photo [column 14: H/P]
     - "pixels to one colony" ratio [column 15: an integer, mostly >1]
-0. `bash /full/path/to/agalony.sh [py/r] [/full/path/of/photos] [nCPU] [clear?]`
+0. `bash /full/path/to/agalony.sh [prc] [/full/path/of/photos] [nCPU]`
+    - first option: quick pipeline selection
+    - p = python3 image translation interpreter (option 1)
+    - r = Rscript image translation interpreter (option 2)
+    - c = clear intermediate csv files (optional)
+    - Suggestion: use [p] or [r] only to save intermediate files for checking whether colour thresholds are correctly placed; final run use [pc] or [rc] to save disk space
 
 An [**example**](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ph-u/docManual/master/agalony/manual/example.html?token=AMIZLGCRNQONXJ4XXOAQDD27YDPWA) is also provided for a clearer illustration.
 
 ## **Warning**
-Users should only put photos and one `range.csv` in the data folder before running this program, especially when using the `clear` option to permanent delete intermediate files.  
+Users should only put photos and one `range.csv` in the data folder before running this program, especially when using the "clear" (c) option to permanent delete intermediate files.  
 
 It is the sole responsibility of users to ensure only the necessary input files are in the directory this program works on; this pipeline never process data outside the user-indicated photo directory.  
 
@@ -76,4 +81,5 @@ All source files in this repository are under Apache-2.0 License, the text of wh
 [https://ph-u.github.io/agalony/](https://ph-u.github.io/agalony/)
 
 ## Version History
+1.0.0 - modify CLI, more efficient pipeline (C-script)
 0.0.1 - Initial release

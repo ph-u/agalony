@@ -41,8 +41,7 @@ int main(int argc, char *argv[]){
     rEf = strtok(rangeLine,s);
     i=0;while(rEf!=NULL){
 	    if(i==0){rX1=atoi(rEf);}else if(i==1){rY1=atoi(rEf);}else if(i==2){rX2=atoi(rEf);}else if(i==3){rY2=atoi(rEf);}else if(i==4){c1X1=atoi(rEf);}else if(i==5){c1Y1=atoi(rEf);}else if(i==6){c1X2=atoi(rEf);}else if(i==7){c1Y2=atoi(rEf);}else if(i==8){c2X1=atoi(rEf);}else if(i==9){c2Y1=atoi(rEf);}else if(i==10){c2X2=atoi(rEf);}else if(i==11){c2Y2=atoi(rEf);}
-	    rEf = strtok(NULL,s);
-	    i++;
+	    rEf = strtok(NULL,s);i++;
     }
 
     // correct names & path -> open write files
@@ -71,8 +70,7 @@ int main(int argc, char *argv[]){
 	    rEf = strtok(cPy,s);
 	    i=0;while(rEf!=NULL){
 		    if(i==0){dY=atoi(rEf);}else if(i==1){dX=atoi(rEf);}else if(i==2){dR=atoi(rEf);}else if(i==3){dG=atoi(rEf);}else{dB=atoi(rEf);}
-		    rEf = strtok(NULL,s);
-		    i++;
+		    rEf = strtok(NULL,s);i++;
 	    }
 	    int // get tokens for boundaries: rim, colony_1, colony_2
             pxLoc = inCircle(dX, dY, rimX, rimY, rimR1, rimR2),
