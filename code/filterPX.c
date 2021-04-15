@@ -12,12 +12,11 @@ date: 20201122
 #include "agalony.h" // it included other necessary libs for this script
 
 int main(int argc, char *argv[]){
-    char *pAth = argv[1];
-    char *inFile = argv[2];
+    char *pAth = argv[1], *inFile = argv[2];
 
-    size_t rangeBuf = 28; // rgb 3 int long *6 + 7 ","|"\0"|"\n"
+    size_t rangeBuf = 25; // rgb: [RGB,]*6+EOL (last , -> \0)
     char *rangeLine = (char*) malloc(rangeBuf*sizeof(int));
-    size_t rgbBuf = 28; // same as groupPX.c
+    size_t rgbBuf = 24; // same as groupPX.c
     char *rgbLine = (char*) malloc(rgbBuf*sizeof(int));
 
     // correct names & path -> open I/O files
