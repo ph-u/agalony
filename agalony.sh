@@ -28,7 +28,7 @@ rm ${tAr}/00Colony.csv 2> /dev/null
 
 ##### img process #####
 for i in `ls ${tAr}|grep -e "\.jpg\|\.JPG\|\.jpeg\|\.JPEG\|\.png\|\.PNG\|\.tif\|\.TIF"`;do
-	bash ${mAs}imgPipe.sh $1 ${mAs} ${tAr} ${i} &
+	bash ${mAs}imgPipe.sh ${sC} ${mAs} ${tAr} ${i} &
 ## process thread as instructed
 	while [[ `ps aux|grep -e "imgPipe.sh"|grep -v "grep\|vi"|wc -l` -ge ${nCPU} ]];do
 		sleep 1
